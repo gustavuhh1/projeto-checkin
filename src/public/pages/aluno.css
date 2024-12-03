@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Alice&family=Faculty+Glyphic&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Parkinsans:wght@300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+margin: 0;
+padding: 0;
+}
+
+
+
+#page{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(54, 99, 99);
+    font-family: 'Roboto', sans-serif;
+    min-height: 920px;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+h4{
+display: flex;
+align-self: center;
+position: relative;
+top: 200px;
+
+
+}
+
+.token{
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+.token-area{
+    display: flex;
+    border: none solid;
+    background-color:rgb(95, 139, 139) ;
+    border-radius: 22px;
+    height: 100px;
+    width: 500px;
+    align-self: center;
+    margin: 200px;
+    align-items: center;
+} 
+
+.token-area span{
+    width: 50px;
+    height: 50px;
+    border: none solid;
+    border-radius: 7px;
+    margin: 50px;
+    background-color: #ffffff;
+    text-align: center;
+ 
+}
+
+.response-box{
+    border: none solid;
+    background-color:rgb(95, 139, 139) ;
+    border-radius: 22px;
+    height: 100px;
+    width: 500px;
+    align-self: center;
+  
+
+} & .response-box h3{
+    font-size: 20px;
+    text-align: center;
+    align-content: center;
+
+} & .response-box h5{
+    font-size: 18px;
+    text-align: center;
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+
+} & button{
+    border-radius:7px;
+    width: 100px;;
+    margin-top: 20px;
+    border: none 0px;
+    text-align: center;
+}
