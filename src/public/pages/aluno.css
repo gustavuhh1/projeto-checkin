@@ -6,84 +6,77 @@ padding: 0;
 }
 
 
-
 #page{
+    width: 100vw ;
+    height: 100vh;
+    background-color: rgb(173, 219, 219);
     display: flex;
     flex-direction: column;
-    background-color: rgb(54, 99, 99);
-    font-family: 'Roboto', sans-serif;
-    min-height: 920px;
-    font-family: 'Roboto', sans-serif;
-    
-}
-
-h4{
-display: flex;
-align-self: center;
-position: relative;
-top: 200px;
-
-
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Roboto' , sans-serif ;
 }
 
 .token{
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-}
-
-.token-area{
     display: flex;
-    border: none solid;
-    background-color:rgb(95, 139, 139) ;
-    border-radius: 22px;
+    flex-direction: column;
+    border: none solid black;
+    border-radius: 26px;
+    width: 400px;
     height: 100px;
-    width: 500px;
-    align-self: center;
-    margin: 200px;
     align-items: center;
-} 
+    background-color: rgb(95, 139, 139);
+    margin-top: 200px;
+} & .token-area{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    
 
-.token-area span{
-    width: 50px;
-    height: 50px;
-    border: none solid;
-    border-radius: 7px;
-    margin: 50px;
+
+
+}& span{
+    display: flex;
+    border: none solid black;
     background-color: #ffffff;
+    border-radius: 7px;
+    width: 30px;
+    height: 40px;
+    align-items: center;
     text-align: center;
- 
+    justify-content: center;
+    font-size: 2.1rem;
+    
+} & h4{
+    color: #ffffff;
+    margin-top: 10px;
+    font-size: 1.3rem;
 }
 
 .response-box{
-    border: none solid;
-    background-color:rgb(95, 139, 139) ;
-    border-radius: 22px;
-    height: 100px;
-    width: 500px;
-    align-self: center;
-  
-
-} & .response-box h3{
-    font-size: 20px;
-    text-align: center;
-    align-content: center;
-
-} & .response-box h5{
-    font-size: 18px;
-    text-align: center;
-}
-
-.button-box {
     display: flex;
-    justify-content: center;
-    margin-top: 50px;
-
-} & button{
-    border-radius:7px;
-    width: 100px;;
-    margin-top: 20px;
-    border: none 0px;
+    flex-direction: column;
+    border: none solid;
+    border-radius: 26px;
+    width: 400px;
+    height: 200px;
+    align-items: center;
+    background-color: rgb(95, 139, 139);
+} & h5{
+    color: #ffffff;
+} & h3{
     text-align: center;
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-top: 30px;
 }
+
+.button-box button{
+    width: 100px;
+    height: 40px ;
+    margin-bottom: 100px;
+    border-radius: 7px;
+    border: none ;
+    background-color:rgb(95, 139, 139);
+    color: #ffffff;
+};
