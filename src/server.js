@@ -1,9 +1,8 @@
 import { app } from "./app.js";
-import env from 'dotenv'
-env.config()
+import env from "./env.js";
 
 
-app.listen(process.env.PORT, 
+app.listen(env.PORT, 
     'localhost', () => {
-    console.log(`Servidor rodando no http://localhost:${process.env.PORT}`)
+    console.log(`Servidor rodando no http://localhost:${env.PORT}`)
 })

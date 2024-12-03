@@ -1,3 +1,19 @@
 import express from "express";
+import path from "path";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+import auth from "./routes/auth.js";
 
 export const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+app.use('/auth', auth)
+
+app.use('/', express.static(path.join(__dirname, './public/pages/'), {
+    extensions: ['html, css'],
+    redirect: '/'
+}))
