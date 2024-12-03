@@ -1,15 +1,17 @@
 {
   "name": "projeto-checkin-75conto",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "dev": "node --watch "
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "dotenv": "^16.4.6",
     "express": "^4.21.1",
     "parse": "^5.3.0"
