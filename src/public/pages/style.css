@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#page{
+
+}
+
+
+h1{
+ text-align: center;
+ margin-top: 200px;
+}
+
+
+h3{
+display: flex;
+align-content: flex-start;
+padding-left: 30px;
+}
+
+.loginBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none  solid;
+    border-radius: 36px;
+    height: 30vh;
+    background-color: rgb(72, 167, 167);
+    margin: 300px 750px 300px 750px;
+    gap: 20px;
+    
+    
+} & #inputMatricula{
+    padding: 0px 20px 0px 20px;
+
+} & #inputSenha{
+    padding: 0px 20px 0px 20px;
+}
