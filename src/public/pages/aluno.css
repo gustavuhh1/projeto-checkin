@@ -29,12 +29,9 @@ padding: 0;
     margin-top: 200px;
 } & .token-area{
     display: flex;
-    width: 100%;
+    width: 45%;
     justify-content: space-evenly;
     
-
-
-
 }& span{
     display: flex;
     border: none solid black;
