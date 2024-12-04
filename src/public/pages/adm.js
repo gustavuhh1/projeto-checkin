@@ -1,4 +1,4 @@
-async function getTokenFromBackend() {
+async function getToken() {
     const href = window.location.href;
     const url = href.replace("/adm.html", "");
     const requestUrl = `${url}/token/`;
@@ -20,7 +20,7 @@ async function displayTokenInSpans() {
   const spans = document.querySelectorAll("#numberBox span");
 
   // Obter o token do backend
-  const tokenResponse = await getTokenFromBackend();
+  const tokenResponse = await getToken();
   const token = tokenResponse.replace('"', '')
   const token_digits = token.split('')
 
@@ -31,14 +31,47 @@ async function displayTokenInSpans() {
       span.textContent = ""; // Limpar spans extras, se houver
     }
   });
+
 }
-displayTokenInSpans()
+
+async function displayUsersInList() {
+    
+    const href = window.location.href;
+    const url = href.replace("/adm.html", "");
+    const requestUrl = `${url}/adm/log`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    
+    const results = await response.json()
+    
+    const ul = document.getElementById("listAluno");
+
+    console.log(results)
+    results.forEach((result) => {
+        const user = {
+          username: result.username,
+          matricula: result.matricula,
+          lastCheckin: result.lastCheckin,
+          lastCheckout: result.lastCheckout,
+        };
+
+        const li = document.createElement('li')
+
+        li.innerHTML = `<b>${user.username}</b>: ${user.matricula} <br>Checkin: ${user.lastCheckin}<br>Checkout: ${user.lastCheckout}`
+        li.className = 'liItem'
+        ul.appendChild(li)
+    })
+
+
+}   
 
 document.addEventListener('DOMContentLoaded', () => {
+    displayUsersInList();
+    displayTokenInSpans();
     const btnBack = document.getElementById("btnBack");
-
-
-
 
     btnBack.addEventListener("click", () => {
       localStorage.clear();
