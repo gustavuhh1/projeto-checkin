@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputs = document.querySelectorAll(".tokenCamp");
-  const chekinButton = document.getElementById("checkinbtn");
+  const chekinButton = document.getElementById("btnCheckin");
+  const backBtn = document.getElementById("btnBack");
 
   // Evento de clique no botão
   chekinButton.addEventListener("click", async () => {
@@ -46,26 +47,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     try{
-        const response = await fetch(`${requestUrl}checkin`, {
+
+        const statusText = document.getElementById("statusCheck");
+
+        // LocalStorage 
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const user = JSON.parse(localStorage.getItem("user"));
+
+
+        const response = await fetch(`${requestUrl}checkout`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({token}),
+          body: JSON.stringify({token, user}),
         })
     
         if(response.ok){
             const data = await response.json();
             console.log(data)
             alert('Checkin feito com sucesso')
+            statusText.textContent = "Parabéns, o check-out foi realizado com sucesso!";
+            statusText.hidden = false
+            statusText.style.color = "#ffffff";
         }else {
             const errorData = await response.json();
-            console.error(errorData)
+            statusText.textContent = "Checkin não efetuado";
+            statusText.hidden = false;
+            statusText.style.color = "red"
             alert('Error: Token não encontrado', errorData)
+            console.error(errorData)
         }
 
     }catch (error) {
       console.error("Erro na requisição:", error);
     }
 
+  });
+  // Volta para homepage
+  backBtn.addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "/";
   });
 });
 

@@ -14,15 +14,23 @@ function generateAlphanumericToken(length = 4) {
   return token.toUpperCase();
 }
 
-async function generateDateNow(){
-    const today = new Date();
-    const dateString = today.toISOString().split("T")[0]; 
-    return dateString
+export async function generateDateNow(withHours) {
+  const today = new Date();
+  const dateString = today.toISOString().split("T")[0];
+
+  if (withHours) {
+    // Se withHours for true, incluir hora, minuto e segundo
+    const timeString = today.toISOString().split("T")[1].split(".")[0]; // Remove a parte dos milissegundos
+    return `${dateString} ${timeString}`; // Ex: "2024-12-04 15:30:45"
+  }
+
+  // Se não, retorna apenas a data
+  return dateString; // Ex: "2024-12-04"
 }
 
 tokenRoutes.get('/' , async (req, res) => {
     try {
-        const dateString = await generateDateNow(); // Formato YYYY-MM-DD
+        const dateString = await generateDateNow(false); // Formato YYYY-MM-DD
         console.log(dateString + ' data de hoje')
         // Cria uma query para buscar um token com a data de hoje
         const TokenClass = Parse.Object.extend('Token');
@@ -49,25 +57,36 @@ tokenRoutes.get('/' , async (req, res) => {
 }    
 )
 
-tokenRoutes.post('/checkin', async (req, res) => {
-    const { token } = req.body
+tokenRoutes.post('/checkout', async (req, res) => {
+    const { token, user } = req.body
 
     
     console.log("Token recebido:", token)
+    console.log("Usuário recebido:", user)
+    // token
     const queryToken = new Parse.Query('Token') 
     queryToken.equalTo('tokenDigit', token)
+    // Usuário
+    const queryUser = new Parse.Query('Alunos')
+    queryUser.equalTo('matricula', user.matricula)
     
     try{
-
-        const dateNow = await generateDateNow()
-        const result = await queryToken.first()
-        const tokenDate = result.get('dateCreated')
-        const tokenDigit = result.get('tokenDigit') 
+        const dateNow = await generateDateNow(false)
+        const user = await queryUser.first()
+        const resultToken = await queryToken.first()
+        const tokenDate = resultToken.get('dateCreated')
+        const tokenDigit = resultToken.get('tokenDigit') 
         console.log(`Token encontrado ${tokenDigit} Data: ${tokenDate}, data de hoje ${dateNow}`)
-        if (!result || tokenDate !== dateNow) {
+        if (!resultToken || tokenDate !== dateNow) {
           console.error({error: 'Token invalido'})
         } else {
-          return res.status(202).send({ token: tokenDigit, "Data:": tokenDate });
+          const DateWithHourNow = await generateDateNow(true)
+          user.set("lastCheckout", DateWithHourNow);
+          await user.save()
+
+          return res
+            .status(202)
+            .send({ token: tokenDigit, "Checkout:": DateWithHourNow });
         }
 
 

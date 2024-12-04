@@ -69,12 +69,14 @@ padding: 0;
     border: none solid;
     border-radius: 26px;
     width: 400px;
-    height: 200px;
+    min-height: 150px;
+    height: auto;
     align-items: center;
     background-color: rgb(95, 139, 139);
 } & h5{
+    margin-top: 15px;
     color: #ffffff;
-} & h3{
+} & #statusCheck{
     text-align: center;
     color: #ffffff;
     font-size: 1.3rem;

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import bcrypt from 'bcrypt'
 import Parse from "../database.js";
+import { generateDateNow } from "./tokenRoutes.js";
 
 
 const authRoutes = Router();
@@ -25,6 +26,8 @@ authRoutes.post("/register", async (req, res) => {
         newAluno.set("password", encryptPassword);
         newAluno.set("matricula", matricula);
         newAluno.set("isAdmin", isAdmin);
+        newAluno.set("lastCheckin", ' ')
+        newAluno.set("lastCheckout", ' ')
 
         const created = await newAluno.save();
         return res.status(201).send({
@@ -42,7 +45,6 @@ authRoutes.post("/register", async (req, res) => {
 
 authRoutes.post('/login', async (req, res, next) => {
     const { matricula, password} = req.body;
-    console.log(matricula, password)
     
     const queryAlunos = new Parse.Query('Alunos')
     queryAlunos.equalTo('matricula', matricula)
@@ -63,22 +65,28 @@ authRoutes.post('/login', async (req, res, next) => {
         })
 
         const user = await query
-
-
-        const getUser = {
-            "username": await user.get('username'),
-            "password": await user.get('password'),
-            "matricula": await user.get('matricula'),
-            "isAdmin": await user.get('isAdmin'),
-        }
-        const result = bcrypt.compareSync(password, getUser.password)
+        
+        const result = bcrypt.compareSync(password, await user.get('password'))
         if(!result){
             throw new Error('Usuário não existente/ou Senha inválida')
         }else{
+            user.set("lastCheckin", await generateDateNow(true));
+
+            await user.save()
+
+            const getUser = {
+              username: await user.get("username"),
+              password: await user.get("password"),
+              matricula: await user.get("matricula"),
+              isAdmin: await user.get("isAdmin"),
+              lastCheckin: await user.get("lastCheckin"),
+              lastCheckout: await user.get('lastCheckout')
+            };
+          
             res.status(200).send({ message: "Usuário logado 🚀", usuario: getUser });
         }
     } catch(Error){
-        res.status(401).send({message: 'Usuário invalido'});
+        res.status(401).send(Error);
     }
 
 })

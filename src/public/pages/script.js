@@ -25,13 +25,21 @@ btnAcesso.addEventListener("click", async () => {
   })
     .then((response) => response.json()) // Trata a resposta como JSON
     .then((data) => {
+        console.log(data)
         const isAdmin = data.usuario.isAdmin || false
-        console.log(isAdmin)
       // Lógica para o que fazer com a resposta do servidor
       if (data.usuario) {
         if(isAdmin){
             window.location.href = "./adm.html"
         }else{
+            const user = {
+              "matricula": data.usuario.matricula,
+              "password": data.usuario.password
+            }
+            localStorage.setItem('isLoggedIn', 'true')
+            localStorage.setItem('user', JSON.stringify(user))
+
+            console.log(data.usuario)
             window.location.href = './aluno.html'
         }
         alert("Login bem-sucedido!");
