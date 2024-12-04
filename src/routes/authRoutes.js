@@ -11,7 +11,7 @@ const authRoutes = Router();
 
 authRoutes.post("/register", async (req, res) => {
   const { username, password, matricula, isAdmin } = req.body;
-
+  console.log(req.body)
   const encryptPassword = bcrypt.hashSync(password, 10);
 
   const query = new Parse.Query("Alunos");

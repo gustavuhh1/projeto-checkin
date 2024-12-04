@@ -31,7 +31,6 @@ export async function generateDateNow(withHours) {
 tokenRoutes.get('/' , async (req, res) => {
     try {
         const dateString = await generateDateNow(false); // Formato YYYY-MM-DD
-        console.log(dateString + ' data de hoje')
         // Cria uma query para buscar um token com a data de hoje
         const TokenClass = Parse.Object.extend('Token');
         const query = new Parse.Query(TokenClass);
