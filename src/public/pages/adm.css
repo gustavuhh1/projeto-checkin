@@ -52,6 +52,7 @@
 } & h4{
     color: #ffffff;
     text-shadow: 1px 1px 1px black;
+    margin-top: 5px;
 }
 
 .containerCheckin{
@@ -66,7 +67,11 @@
     margin: 1px;
     color: #ffffff;
     text-shadow: 1px 1px 1px black;
-} & li{
+
+} & ul{
+    margin: 15px 10px;
+
+}& li{
     color: #ffffff;
 }
 
