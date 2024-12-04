@@ -32,8 +32,18 @@ padding: 0;
     width: 45%;
     justify-content: space-evenly;
     
-}& span{
-    display: flex;
+}& .tokenCamp{
+    width: 30px;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+   
+    /* display: flex;
     border: none solid black;
     background-color: #ffffff;
     border-radius: 7px;
@@ -42,9 +52,12 @@ padding: 0;
     align-items: center;
     text-align: center;
     justify-content: center;
-    font-size: 2.1rem;
-    
-} & h4{
+    font-size: 2.1rem; */
+} & .tokenCamp:focus {
+    border-color: #598b8f;
+    box-shadow: 0 0 5px #598b8f;
+}
+& h4{
     color: #ffffff;
     margin-top: 10px;
     font-size: 1.3rem;

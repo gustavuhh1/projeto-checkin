@@ -14,10 +14,15 @@ function generateAlphanumericToken(length = 4) {
   return token.toUpperCase();
 }
 
+async function generateDateNow(){
+    const today = new Date();
+    const dateString = today.toISOString().split("T")[0]; 
+    return dateString
+}
+
 tokenRoutes.get('/' , async (req, res) => {
     try {
-        const today = new Date();
-        const dateString = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+        const dateString = await generateDateNow(); // Formato YYYY-MM-DD
         console.log(dateString + ' data de hoje')
         // Cria uma query para buscar um token com a data de hoje
         const TokenClass = Parse.Object.extend('Token');
@@ -27,7 +32,7 @@ tokenRoutes.get('/' , async (req, res) => {
         const existingToken = await query.first();
         if (existingToken) {
             // Retorna o token já existente
-            return res.json({ token: existingToken.get('tokenDigit') });
+            return res.status(202).json({ token: existingToken.get('tokenDigit') });
         } else {
             // Cria um novo token
             const newStringToken = generateAlphanumericToken()
@@ -43,6 +48,33 @@ tokenRoutes.get('/' , async (req, res) => {
     }
 }    
 )
+
+tokenRoutes.post('/checkin', async (req, res) => {
+    const { token } = req.body
+
+    
+    console.log("Token recebido:", token)
+    const queryToken = new Parse.Query('Token') 
+    queryToken.equalTo('tokenDigit', token)
+    
+    try{
+
+        const dateNow = await generateDateNow()
+        const result = await queryToken.first()
+        const tokenDate = result.get('dateCreated')
+        const tokenDigit = result.get('tokenDigit') 
+        console.log(`Token encontrado ${tokenDigit} Data: ${tokenDate}, data de hoje ${dateNow}`)
+        if (!result || tokenDate !== dateNow) {
+          console.error({error: 'Token invalido'})
+        } else {
+          return res.status(202).send({ token: tokenDigit, "Data:": tokenDate });
+        }
+
+
+    }catch(error){
+        return res.status(404).send({ message: "Token invalido", error });
+    }
+})
 
 
 export default tokenRoutes
