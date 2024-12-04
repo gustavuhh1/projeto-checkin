@@ -19,7 +19,9 @@ align-items: center;
 
 header h1{
 text-align: center;
-font-size: 60px;
+font-size: 70px;
+text-shadow: 1px 1px 1px  black;
+color: #ffffff;
 
 }
 
@@ -35,6 +37,7 @@ font-size: 60px;
     gap: 20px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 200px;
 } & #inputMatricula{
     padding: 0px 20px 0px 20px;
 
@@ -53,5 +56,6 @@ border-radius:7px;
 width: 80px;;
 margin-top: 20px;
 border: none 0px;
+color: rgb(119, 119, 119);
 
 }
